@@ -53,23 +53,27 @@ class Hamburger {
     static TOPPING_SAUCE = 'TOPPING_SAUCE';
     static TOPPING_MAYO = 'TOPPING_MAYO';
     price = 0;
+    price_topping = 0;
     calories = 0;
+    calories_topping = 0;
 
     addTopping (topping) {
         if (topping === Hamburger.TOPPING_SAUCE) {
-            this.price += 15;
-            this.calories += 0;
+            this.price_topping += 15;
+            this.calories_topping += 0;
         } else if (topping === Hamburger.TOPPING_MAYO) {
-            this.price += 20;
-            this.calories += 5;
+            this.price_topping += 20;
+            this.calories_topping += 5;
         } else {
             console.log(`Something went wrong...`);
         }
     }
 
     calculatePrice() {
+        this.price = 0;
         if (this.size === Hamburger.SIZE_SMALL) {
             this.price += 50;
+            this.price += this.price_topping;
 
             if (this.stuffing === Hamburger.STUFFING_CHEESE) {
                 this.price += 10;
@@ -82,6 +86,7 @@ class Hamburger {
             }
         } else if (this.size === Hamburger.SIZE_BIG) {
             this.price += 100;
+            this.price += this.price_topping;
 
             if (this.stuffing === Hamburger.STUFFING_CHEESE) {
                 this.price += 10;
@@ -99,8 +104,10 @@ class Hamburger {
     }
 
     calculate() {
+        this.calories = 0;
         if (this.size === Hamburger.SIZE_SMALL) {
             this.calories += 20;
+            this.calories += this.calories_topping;
             
             if (this.stuffing === Hamburger.STUFFING_CHEESE) {
                 this.calories += 20;
@@ -113,6 +120,7 @@ class Hamburger {
             }
         } else if (this.size === Hamburger.SIZE_BIG) {
             this.calories += 40;
+            this.calories += this.calories_topping;
 
             if (this.stuffing === Hamburger.STUFFING_CHEESE) {
                 this.calories += 20;
@@ -132,8 +140,8 @@ class Hamburger {
 
 let burger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
 burger.addTopping(Hamburger.TOPPING_SAUCE);
-console.log(`Price: ${burger.calculatePrice()}`);
-console.log(`Calories: ${burger.calculate()}`);
+console.log(`Price of hamburger (size small, stuffing cheese and topping sauce): ${burger.calculatePrice()}`);
+console.log(`Calories of hamburger (size small, stuffing cheese and topping sauce): ${burger.calculate()}`);
 burger.addTopping(Hamburger.TOPPING_MAYO);
-console.log(`Price: ${burger.calculatePrice()}`);
-console.log(`Calories: ${burger.calculate()}`);
+console.log(`Price of hamburger (size small, stuffing cheese, topping sauce and topping mayo): ${burger.calculatePrice()}`);
+console.log(`Calories of hamburger (size small, stuffing cheese, topping sauce and topping mayo): ${burger.calculate()}`);
